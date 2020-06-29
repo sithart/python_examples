@@ -10,24 +10,29 @@ with open('email_four.txt') as email:
     email_four = email.read()
 
 
-def censor_one(email, worldlist='learning algorithms'):
-    """Censoring a single keyword"""
-    return email.replace(worldlist, censor_this(worldlist))
+def censor_one(email, specificword='learning algorithms'):
+    """censor a specific word or phrase"""
+    censor = "#" * len(specificword)
+    result = email.replace(specificword, censor)
+    return result
 
-# censor the words based on the list of words
+# Email One
 
 
 def censor_two(email, wordlist):
     """Censoring text as per the wordlist, supplied in a list"""
     wordlist = add_variations(wordlist)
     for term in wordlist:
-        email = email.replace(term, censor_this(term))
+        email = email.lower().replace(term, '▓'*len(term))
     return email
+
+# Email Two
 
 
 def censor_three(email, wordlist):
     """Censoring second and further occurence froom the banned list"""
     email_split = email.split()
+    # print(email_split)
     banned_words = []
     i = 0
     clean_word = ''
@@ -36,12 +41,16 @@ def censor_three(email, wordlist):
         if clean_word in wordlist:
             banned_words.append(clean_word)
             if banned_words.count(clean_word) > 1:
-                censored_word = censor_this(words)
+                censored_word = '▓'*len(words)
                 email_split[i] = censored_word
         i += 1
     return ' '.join(email_split)
 
+# Email Three
+
+
 def censor_four(email, wordlist):
+    print(wordlist)
     """Censoring all banned and near words"""
     eliminate_spaced_words(email, wordlist)
     email_split = email.split()
@@ -54,6 +63,7 @@ def censor_four(email, wordlist):
             email_censored[i-1] = censor_this(email_split[i-1])
             email_censored[i+1] = censor_this(email_split[i+1])
     print(' '.join(email_censored))
+
 
 def censor_four_2(email, wordlist):
     """A better implementation of the previous one"""
@@ -103,33 +113,14 @@ def eliminate_spaced_words(email, wordlist):
 
 
 def add_variations(wordlist):
-    """Adds upper, lower and capitalized to the list (or set?)"""
+    """Add lower  to the list"""
     new_wordlist = []
     for word in wordlist:
-        new_wordlist.append(word.upper())
         new_wordlist.append(word.lower())
-        new_wordlist.append(word.capitalize())
     return new_wordlist
 
-# COMPLETLEY NEW METHODS
 
-# def word_cleaning(word, full=False):
-#     string = word.lower()
-#     pre_punctuation = ''
-#     post_punctuation =''
-#     clean_word = ''
-#     for letter in string:
-#         if letter.isalpha:
-#             clean_word += letter
-#         elif clean_word:
-#             pre_punctuation += letter
-#         else:
-#             post_punctuation += letter
-#     if full:
-#         return clean_word, pre_punctuation, post_punctuation
-#     return clean_word
-
-# WTF? WHY DOESNT IT WORK?
+# censored_words = proprietary_terms + negative_words
 
 
 proprietary_terms = ["she", "personality matrix", "sense of self",
@@ -142,13 +133,13 @@ negative_words = ["she", "concerned", "behind", "danger", "dangerous",
                   "concerning", "horrible", "horribly", "questionable"]
 total_linguistic_ban = negative_words + proprietary_terms
 
-print(' === email ONE === \n\n')
-print(censor_one(email_one, 'learning algorithms'))
+# print(' === email ONE === \n\n')
+# print(censor_one(email_one, 'learning algorithms'))
 # print('\n === email TWO === \n\n')
 # print(censor_two(email_two, proprietary_terms))
 # print('\n === email THREE === \n\n')
 # print(censor_three(email_three, negative_words))
-# print('\n === email FOUR === \n\n')
-# print(censor_four(email_four, total_linguistic_ban))
+print('\n === email FOUR === \n\n')
+print(censor_four(email_four, total_linguistic_ban))
 # print('\n === email FOUR v 2 === \n\n')
 # print(censor_four_2(email_four, total_linguistic_ban))
