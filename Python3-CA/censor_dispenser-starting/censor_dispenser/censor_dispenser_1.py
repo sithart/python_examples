@@ -133,13 +133,13 @@ negative_words = ["she", "concerned", "behind", "danger", "dangerous",
                   "concerning", "horrible", "horribly", "questionable"]
 total_linguistic_ban = negative_words + proprietary_terms
 
-# print(' === email ONE === \n\n')
-# print(censor_one(email_one, 'learning algorithms'))
-# print('\n === email TWO === \n\n')
-# print(censor_two(email_two, proprietary_terms))
-# print('\n === email THREE === \n\n')
-# print(censor_three(email_three, negative_words))
+print(' === email ONE === \n\n')
+print(censor_one(email_one, 'learning algorithms'))
+print('\n === email TWO === \n\n')
+print(censor_two(email_two, proprietary_terms))
+print('\n === email THREE === \n\n')
+print(censor_three(email_three, negative_words))
 print('\n === email FOUR === \n\n')
 print(censor_four(email_four, total_linguistic_ban))
-# print('\n === email FOUR v 2 === \n\n')
-# print(censor_four_2(email_four, total_linguistic_ban))
+print('\n === email FOUR v 2 === \n\n')
+print(censor_four_2(email_four, total_linguistic_ban))
